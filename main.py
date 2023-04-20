@@ -34,7 +34,7 @@ def predict():
   image_bytes = request.data
   image = Image.open(BytesIO(image_bytes))
   image.save('image.jpg')
-  configs_model_path = '../Models/03_handwriting_recognition/202301111911'
+  configs_model_path = '/Models/03_handwriting_recognition/202301111911'
   configs_vocab = 'z9k5ijq.E0TPr,LcfDyumotYKO-QJ;d:Bnb8lNWHI4s6g7U!1A3)pweV#MRF"GZvax&h(S2C'
 
   model = ImageToWordModel(model_path=configs_model_path, char_list=configs_vocab)
