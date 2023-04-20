@@ -1,5 +1,5 @@
 Flask==2.0.1
 mltu==1.0.5
 numpy==1.22.4
-opencv_python==4.7.0.72
+opencv-python-headless==4.7.0.72
 Pillow==9.4.0
