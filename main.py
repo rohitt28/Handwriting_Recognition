@@ -39,6 +39,7 @@ def predict():
   image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
   model = ImageToWordModel(model_path=configs_model_path, char_list=configs_vocab)
   prediction_text = model.predict(image)
+  print(prediction_text)
   return prediction_text
 
 app.run(host="0.0.0.0", port=3000)
