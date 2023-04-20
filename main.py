@@ -6,6 +6,7 @@ from io import BytesIO
 import typing
 import numpy as np
 import cv2
+import os
 from mltu.inferenceModel import OnnxInferenceModel
 from mltu.utils.text_utils import ctc_decoder
 
@@ -33,7 +34,7 @@ def home():
 def predict():
   image_bytes = request.data
   image = Image.open(BytesIO(image_bytes))
-  configs_model_path = '/Models/03_handwriting_recognition/202301111911'
+  configs_model_path = os.path.join('Models', 'handwriting_recognition', '202301111911')
   configs_vocab = 'z9k5ijq.E0TPr,LcfDyumotYKO-QJ;d:Bnb8lNWHI4s6g7U!1A3)pweV#MRF"GZvax&h(S2C'
 
   model = ImageToWordModel(model_path=configs_model_path, char_list=configs_vocab)
