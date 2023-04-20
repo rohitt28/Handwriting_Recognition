@@ -43,11 +43,4 @@ def predict():
   prediction_text = model.predict(image)
   return prediction_text
 
-def run():
-  app.run(port=8080)
-
-def keep_alive():
-  t = Thread(target=run)
-  t.start()
-
-keep_alive()
+app.run(host="0.0.0.0", port=3000)
