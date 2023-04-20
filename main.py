@@ -36,7 +36,7 @@ def predict():
   image = Image.open(BytesIO(image_bytes))
   configs_model_path = os.path.join('Models', 'handwriting_recognition', '202301111911')
   configs_vocab = 'z9k5ijq.E0TPr,LcfDyumotYKO-QJ;d:Bnb8lNWHI4s6g7U!1A3)pweV#MRF"GZvax&h(S2C'
-
+  image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
   model = ImageToWordModel(model_path=configs_model_path, char_list=configs_vocab)
   prediction_text = model.predict(image)
   return prediction_text
