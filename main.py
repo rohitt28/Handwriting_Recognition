@@ -9,7 +9,7 @@ import cv2
 import os
 from mltu.inferenceModel import OnnxInferenceModel
 from mltu.utils.text_utils import ctc_decoder
-
+from mltu.configs import BaseModelConfigs
 
 class ImageToWordModel(OnnxInferenceModel):
     def __init__(self, char_list: typing.Union[str, list], *args, **kwargs):
@@ -34,10 +34,9 @@ def home():
 def predict():
   image_bytes = request.data
   image = Image.open(BytesIO(image_bytes))
-  configs_model_path = os.path.join('Models', 'handwriting_recognition', '202301111911')
-  configs_vocab = 'z9k5ijq.E0TPr,LcfDyumotYKO-QJ;d:Bnb8lNWHI4s6g7U!1A3)pweV#MRF"GZvax&h(S2C'
+  configs = BaseModelConfigs.load("Models/configs.yaml")
   image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-  model = ImageToWordModel(model_path=configs_model_path, char_list=configs_vocab)
+  model = ImageToWordModel(model_path=configs.model_path, char_list=configs.vocab)
   prediction_text = model.predict(image)
   print(prediction_text)
   return prediction_text
