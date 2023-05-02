@@ -6,10 +6,10 @@ from io import BytesIO
 import typing
 import numpy as np
 import cv2
-import os
 from mltu.inferenceModel import OnnxInferenceModel
 from mltu.utils.text_utils import ctc_decoder
 from mltu.configs import BaseModelConfigs
+from mltu.transformers import ImageResizer
 
 class ImageToWordModel(OnnxInferenceModel):
     def __init__(self, char_list: typing.Union[str, list], *args, **kwargs):
@@ -17,7 +17,7 @@ class ImageToWordModel(OnnxInferenceModel):
         self.char_list = char_list
 
     def predict(self, image: np.ndarray):
-        image = cv2.resize(image, self.input_shape[:2][::-1])
+        image = ImageResizer.resize_maintaining_aspect_ratio(image, *self.input_shape[:2][::-1])
         image_pred = np.expand_dims(image, axis=0).astype(np.float32)
         preds = self.model.run(None, {self.input_name: image_pred})[0]
         text = ctc_decoder(preds, self.char_list)[0]
